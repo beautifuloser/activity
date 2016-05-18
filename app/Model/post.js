@@ -21,6 +21,8 @@ module.exports = Waterline.Collection.extend({
             type : 'string',
             required : 'true'
         },
+        isHot:'boolean',
+        isTop:'boolean',
         createTime : 'date',
         lastModifyTime : 'date'
     },

@@ -4,30 +4,89 @@ body {
   //font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
-
 a {
   color: #00B7FF;
 }
 .main-page{
+  display: -webkit-box; // 老版本语法: Safari, iOS, Android browser, older WebKit browsers.
+  display: -moz-box; // 老版本语法: Firefox (buggy)
+  display: -ms-flexbox; // 混合版本语法: IE 10
+  display: -webkit-flex;
   display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  .main-page-header{
+  -webkit-box-align: center;
+  -moz-align-items: center;
+  -webkit-align-items: center;
+  align-items: center;
+  overflow: hidden;
+  .main-page-block {
+    -webkit-box-flex: 1.0;
+    -moz-flex-grow: 1;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    display: -webkit-box; // 老版本语法: Safari, iOS, Android browser, older WebKit browsers.
+    display: -moz-box; // 老版本语法: Firefox (buggy)
+    display: -ms-flexbox; // 混合版本语法: IE 10
+    display: -webkit-flex;
     display: flex;
-    justify-content: space-between;
+
+    -webkit-box-direction: normal;
+    -webkit-box-orient: vertical;
+    -moz-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+
+    -webkit-box-align: center;
+    -moz-align-items: center;
+    -webkit-align-items: center;
     align-items: center;
+
+    padding-bottom: 80px;
+  }
+  .main-page-header{
+    display: -webkit-box; // 老版本语法: Safari, iOS, Android browser, older WebKit browsers.
+    display: -moz-box; // 老版本语法: Firefox (buggy)
+    display: -ms-flexbox; // 混合版本语法: IE 10
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-box-align: center;
+    -moz-align-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+
+    -webkit-box-pack: justify;
+    -moz-justify-content: space-between;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+
+    padding: 0px 5px;
     width: 100%;
-    padding: 10px;
-    background-color:snow;
-    margin-bottom: 30px;
+    height: 40px;
+    color: #fff;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+    //background-color: #ff9900;
+    align-items: center;
     .main-page-header-nav{
-      width: 49px;
-      height: 44px;
-      background: url("../images/nav-left-btn.png") no-repeat center;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      img{
+        margin: auto;
+        width: 19px;
+        height: 16px;
+      }
     }
     .main-page-header-title{
       text-align: center;
 
+    }
+    .main-page-header-post{
+      text-align: center;
+      width:40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      //margin:auto;
     }
   }
 }
