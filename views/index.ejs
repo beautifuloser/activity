@@ -6,10 +6,45 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
   </head>
   <body>
-    <div id="app" class="main-page">
+    <div ng-app="myApp" id="app" class="main-page" ng-controller="myAppController">
       <div class="main-page-block">
+        <!--header-->
         <%include header.ejs%>
+
+        <!--body-->
+        <section class="main-page-body">
+
+        </section>
+
+        <!--sideBar-->
+        <section class="main-page-sideBar">
+            <ul ng-repeat="x in records">
+                <li>
+
+                </li>
+            </ul>
+        </section>
+        <!--backTop-->
+        <div class="back-top">
+
+        </div>
       </div>
     </div>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+  <script>
+  var app = angular.module('myApp',[]);
+    app.controller('myAppController', function ($scope,$http) {
+
+      $scope.getPosts = function () {
+        var url = "/posts";
+        $scope.start = 0;
+        $http.get(url).success(function (res) {
+
+        });
+      }
+      $scope.getPosts();
+    });
+  </script>
   </body>
 </html>
