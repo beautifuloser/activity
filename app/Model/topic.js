@@ -1,7 +1,7 @@
 var Waterline = require('waterline');
 
 module.exports = Waterline.Collection.extend({
-    identity : 'post',
+    identity : 'topic',
     connection : 'mongo',
     schema : true,
     attributes : {

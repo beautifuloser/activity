@@ -1,7 +1,7 @@
 var Waterline = require('waterline');
 var mongoAdapt = require('sails-mongo');
 var config = require('./config');
-var post = require('../app/Model/post');
+var topic = require('../app/Model/topic');
 var tag = require('../app/Model/tag');
 var reply = require('../app/Model/reply');
 var orm = new Waterline();
@@ -19,7 +19,7 @@ var wlconfig = {
 }
 
 orm.loadCollection(tag);
-orm.loadCollection(post);
+orm.loadCollection(topic);
 orm.loadCollection(reply);
 exports.orm = orm;
 exports.config = wlconfig;
