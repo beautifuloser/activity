@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
-
+var util = require('./app/Util/utils');
 var app = express();
 
 // view engine setup
@@ -21,8 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
-
-
+app.use(util.userInfo);
 app.use('/', routes);
 app.use(function(req, res, next){
   req.models = app.get('models');
