@@ -1,4 +1,5 @@
 var Waterline = require('waterline');
+
 module.exports = Waterline.Collection.extend({
     identity : 'user',
     connection : 'mongo',
@@ -11,6 +12,7 @@ module.exports = Waterline.Collection.extend({
         city:'string',
         country:'string',
         headimgurl:'string',
-        unionid: 'string'//只有在用户将公众号绑定到微信开放平台帐号后才会出现该字段
+        unionid: 'string',//只有在用户将公众号绑定到微信开放平台帐号后才会出现该字段
+        privilege:'array'
     }
 });
