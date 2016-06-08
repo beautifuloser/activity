@@ -7,6 +7,7 @@
 	<title><%=title%></title>
 	<!--<link rel="stylesheet" type="text/css" href="/stylesheets/normalize.css" />-->
 	<!--<link rel="stylesheet" type="text/css" href="/stylesheets/default.css">-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
 	<link rel="stylesheet" href="/stylesheets/test.css">
 	<link rel="stylesheet" href="/stylesheets/style.css">
 	<!--[if IE]>
@@ -28,10 +29,16 @@
     <script src="/bower_components/slideout/dist/slideout.js"></script>
 	<script type="text/javascript">
 		var app = angular.module('myApp',[]);
-		app.controller('myController', function ($scope) {
-			$scope.init = function () {
-				
+		app.controller('myController', function ($scope,$http) {
+			$scope.initUserInfo = function () {
+				$http.get('/user').success(function(res){
+					if(res.retvalue == true){
+						//返回用户信息
+						$scope.user = res.user;
+					}
+				});
 			}
+			$scope.initUserInfo();
 		})
 		var slideout = new Slideout({
 	        'panel': document.getElementById('main'),

@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var session = require('express-session');
 var routes = require('./routes/index');
 var util = require('./app/Util/utils');
 var app = express();
@@ -25,9 +25,18 @@ app.use(function(req, res, next){
   req.models = app.get('models');
   next();
 });
+//express-session
+app.use(session({
+  secret:'activity',
+  name:'activity',
+  cookie:{maxAge:1000*60*20},
+  resave:false,
+  saveUninitialized:true
+}));
+
+//从公众号获取用户信息
 app.use(util.userInfo);
 app.use('/', routes);
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
