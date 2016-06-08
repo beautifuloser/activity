@@ -2,7 +2,6 @@ var request = require('request');
 var config = require('../../config/config');
 module.exports = {
     "userInfo": function (req,res,next) {
-        console.log("调用userinfo");
         if (req.query.code !== undefined){
             //url中code不为空
             var code = req.query.code;
@@ -27,7 +26,7 @@ var getAccess_token = function (req,res,code) {
                     var userInfoObj = JSON.parse(body);
                     //转换头像url
                     userInfoObj.headimgurl = userInfoObj.headimgurl.slice(0,userInfoObj.headimgurl.length-1)+config.headImgSize;
-                    req.models.user.find()
+                    req.models.user.findOne()
                         .where({openid:userInfoObj.openid}).exec(function (err, user) {
                         //用户在数据库中存在
                         if (!err){
@@ -37,7 +36,6 @@ var getAccess_token = function (req,res,code) {
                             }
                             if (user){
                                 //如果用户已经存在,更新用户信息
-
                                 req.models.user.update({openid:userInfoObj.openid},userInfoObj, function (err,result) {
                                     if (!err){
                                         console.log("更新成功!"+userInfoObj.openid);

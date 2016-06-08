@@ -1,6 +1,7 @@
 module.exports = {
     user : function (req, res, next) {
         var ret = {};
+        console.log("取值session :"+JSON.stringify(req.session));
         ret.user = {
             "_id": {
                 "$oid": "57578825254b6cc54a154492"
@@ -20,7 +21,6 @@ module.exports = {
             }
         };
         ret.retvalue = true;
-        console.log(JSON.stringify(ret));
         res.end(JSON.stringify(ret));
     }
 }
