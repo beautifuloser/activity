@@ -7,11 +7,12 @@
 	<title><%=title%></title>
 	<!--<link rel="stylesheet" type="text/css" href="/stylesheets/normalize.css" />-->
 	<!--<link rel="stylesheet" type="text/css" href="/stylesheets/default.css">-->
+	<script src="/bower_components/angular/angular.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
 	<link rel="stylesheet" href="/stylesheets/test.css">
 	<link rel="stylesheet" href="/stylesheets/style.css">
 	<!--[if IE]>
-	<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<!--<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>-->
 	<![endif]-->
 </head>
 <body ng-app="myApp" ng-controller="myController">
@@ -25,7 +26,6 @@
 		<%include body.ejs%>
     </main>
 	<script src="/bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="/bower_components/angular/angular.min.js"></script>
     <script src="/bower_components/slideout/dist/slideout.js"></script>
 	<script type="text/javascript">
 		var app = angular.module('myApp',[]);
@@ -39,6 +39,9 @@
 				});
 			}
 			$scope.initUserInfo();
+			$scope.topics = function (type) {
+				$scope.header = type;
+			}
 		})
 		var slideout = new Slideout({
 	        'panel': document.getElementById('main'),

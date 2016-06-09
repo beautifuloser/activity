@@ -9,22 +9,25 @@ module.exports = Waterline.Collection.extend({
             type : 'string',
             required : true
         },
-        auther : {
+        content : {
             type : 'string',
             required : true
+        },
+        auther : {
+            auther_id : 'string',
+            auther_name : 'string',
+            avatar_url : 'string'
         },
         tag : {
             type : 'string',
-            required : true
         },
-        content : {
-            type : 'string',
-            required : 'true'
-        },
-        isHot:'boolean',
-        isTop:'boolean',
+
+        last_reply_at : 'string',
+        reply_count :'number',
+        hot:'boolean',
+        top:'boolean',
         createTime : 'date',
-        lastModifyTime : 'date'
+        join:'array'
     },
     beforeCreate : function(v,cb){
         v.createTime = new Date();

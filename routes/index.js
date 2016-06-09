@@ -11,4 +11,7 @@ router.get('/topic',topic.get);
 router.delete('/topic/:id',topic.delete);
 router.get('/user',user.user);
 //router.get('/user',user.user);
+router.get('/new', function (req, res, next) {
+  res.render('post',{title:'发起活动'});
+})
 module.exports = router;

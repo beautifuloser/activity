@@ -11,10 +11,11 @@
     <section class="menu-section">
         <!--<h3 class="menu-section-title">Docs</h3>-->
         <ul class="menu-section-list">
-            <li><a href="#" target="_blank">全部活动</a></li>
-            <li><a href="#" target="_blank">精华</a></li>
-            <li><a href="#" target="_blank">我参与的</a></li>
-            <li><a href="#" target="_blank">npm-scripts</a></li>
+            <li><a ng-click="topics('all')">全部活动</a></li>
+            <li><a ng-click="topics('hot')">热门活动</a></li>
+            <li><a ng-click="topics('mine')">我发起的</a></li>
+            <li><a ng-click="topics('join')">我参与的</a></li>
+            <li><a href="/new" target="mainBodyFrame" ng-click="new">npm-scripts</a></li>
         </ul>
     </section>
 </nav>

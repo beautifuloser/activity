@@ -5,9 +5,10 @@ module.exports = waterline.Collection.extend({
     connection : 'mongo',
     schema : true,
     attributes : {
-        post:'string',
-        fromUser : 'string',
-        toUser : 'string',
-        content : 'string'
+        content: 'string' ,
+        topic_id:   'string' ,
+        author_id:   'string'  ,
+        reply_id:   'string'  ,
+        create_at:  'string'
     }
 });
