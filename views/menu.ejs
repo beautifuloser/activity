@@ -9,13 +9,18 @@
     </a>
 
     <section class="menu-section">
-        <!--<h3 class="menu-section-title">Docs</h3>-->
+        <h3 class="menu-section-title"></h3>
         <ul class="menu-section-list">
-            <li><a ng-click="topics('all')">全部活动</a></li>
-            <li><a ng-click="topics('hot')">热门活动</a></li>
-            <li><a ng-click="topics('mine')">我发起的</a></li>
-            <li><a ng-click="topics('join')">我参与的</a></li>
-            <li><a href="/new" target="mainBodyFrame" ng-click="new">npm-scripts</a></li>
+            <li><a href="/listPage/all" target="mainBodyFrame" ng-click="topics('全部活动')">全部活动</a></li>
+            <li><a href="/listPage/hot" target="mainBodyFrame" ng-click="topics('热门活动')">热门活动</a></li>
+            <li><a href="/listPage/my" target="mainBodyFrame" ng-click="topics('我发起的')">我发起的</a></li>
+            <li><a href="/listPage/join" target="mainBodyFrame" ng-click="topics('我参与的')">我参与的</a></li>
+            <li><a href="/new" target="mainBodyFrame" >发起活动</a></li>
+
+        </ul>
+        <h3 class="menu-section-title"></h3>
+        <ul>
+
         </ul>
     </section>
 </nav>

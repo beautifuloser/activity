@@ -1,0 +1,39 @@
+<title><%=title%></title>
+<div ng-app="topicListApp" ng-controller="topicListController" >
+    <ul>
+        <li style="list-style-type:none" ng-repeat="topic in topics">
+            <h3 class="topic-list-title">{{topic.title}}</h3>
+            <div class="topic-list-content">
+                <img class="topic-list-avatar" ng-src="{{topic.auther.avatar_url}}">
+                <div class="topic-list-info">
+                    <p>
+                        <span class="topic-list-name">{{topic.auther.auther_name}}</span>
+                        <span class="topic-list-joined">11</span>
+                    </p>
+                    <p>
+                        <time>2天</time>
+                        <time>12:00:00</time>
+                    </p>
+                    </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<script src="/bower_components/angular/angular.min.js"></script>
+<script>
+    var app = angular.module('topicListApp',[]);
+    app.controller('topicListController', function ($scope,$http) {
+        $scope.initTopicList = function () {
+            var type = document.title;
+            var url = "/topics?type="+type;
+            $http.get(url).success(function (res) {
+                if (res.retvalue == true){
+                    $scope.topics = JSON.parse(res.topics);
+                }else{
+                    console.log("系统错误!");
+                }
+            });
+        }
+        $scope.initTopicList();
+    })
+</script>

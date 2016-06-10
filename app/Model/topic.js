@@ -14,7 +14,7 @@ module.exports = Waterline.Collection.extend({
             required : true
         },
         auther : {
-            auther_id : 'string',
+            open_id : 'string',
             auther_name : 'string',
             avatar_url : 'string'
         },
@@ -26,11 +26,11 @@ module.exports = Waterline.Collection.extend({
         reply_count :'number',
         hot:'boolean',
         top:'boolean',
-        createTime : 'date',
+        //createTime : 'date',
         join:'array'
     },
-    beforeCreate : function(v,cb){
-        v.createTime = new Date();
-        return cb();
-    }
+    //beforeCreate : function(v,cb){
+    //    v.createTime = new Date();
+    //    return cb();
+    //}
 });

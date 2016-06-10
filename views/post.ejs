@@ -1,15 +1,29 @@
 <div ng-app="postApp" ng-controller="postController">
     <div class="post-body-line">
-        <input name="title" id="title" type="text">
+        <input ng-model="title" name="title" id="title" type="text">
 
     </div>
-    <textarea rows="35" class="post-body-content" >{{test}}</textarea>
-    <button ng-click="aaa">asd</button>
+    <textarea rows="35" class="post-body-content" ng-model="content"></textarea>
+    <button ng-click="submitTopic()">asd</button>
 </div>
 <script src="/bower_components/angular/angular.min.js"></script>
 <script>
     var postApp = angular.module('postApp',[]);
     postApp.controller('postController',function($scope,$http){
-        $scope.test = "sss";
+        $scope.submitTopic = function () {
+            var data = {
+                title : $scope.title,
+                content : $scope.content
+            }
+            $http.post('/topic',data).success(function (res) {
+                if (res.retvalue == true){
+                    //保存成功
+                    
+                }else{
+                    alert("保存失败!");
+                    return false;
+                }
+            })
+        }
     });
 </script>

@@ -7,11 +7,16 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
+router.get('/topics',topic.topics);
 router.get('/topic',topic.get);
-router.delete('/topic/:id',topic.delete);
+router.post('/topic',topic.post);
+
 router.get('/user',user.user);
 //router.get('/user',user.user);
 router.get('/new', function (req, res, next) {
   res.render('post',{title:'发起活动'});
-})
+});
+router.get('/listPage/:type', function (req, res, next) {
+  res.render('listPage',{title:req.params.type});
+});
 module.exports = router;
