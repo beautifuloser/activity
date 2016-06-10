@@ -1,16 +1,17 @@
 <title><%=title%></title>
+<link rel="stylesheet" href="/stylesheets/topicList.css">
 <div ng-app="topicListApp" ng-controller="topicListController" >
     <ul>
-        <li style="list-style-type:none" ng-repeat="topic in topics">
-            <h3 class="topic-list-title">{{topic.title}}</h3>
+        <li class="topic-list-li" style="list-style-type:none" ng-repeat="topic in topics">
+            <h3 style="font-size: x-large">{{topic.title}}</h3>
             <div class="topic-list-content">
                 <img class="topic-list-avatar" ng-src="{{topic.auther.avatar_url}}">
                 <div class="topic-list-info">
-                    <p>
-                        <span class="topic-list-name">{{topic.auther.auther_name}}</span>
-                        <span class="topic-list-joined">11</span>
+                    <p class="topic-list-p">
+                        <span class="name">{{topic.auther.auther_name}}</span>
+                        <span class="status">11</span>
                     </p>
-                    <p>
+                    <p class="topic-list-p">
                         <time>2天</time>
                         <time>12:00:00</time>
                     </p>
