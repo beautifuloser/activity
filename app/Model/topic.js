@@ -13,9 +13,9 @@ module.exports = Waterline.Collection.extend({
             type : 'string',
             required : true
         },
-        auther : {
+        author : {
             open_id : 'string',
-            auther_name : 'string',
+            author_name : 'string',
             avatar_url : 'string'
         },
         tag : {

@@ -21,7 +21,9 @@ module.exports = {
     post : function (req, res, next) {
         var topicObj = {
             title:req.body.title,
-            content:req.body.content
+            content:req.body.content,
+            author : req.session.author
+
         }
         req.models.topic.create(topicObj).exec(function (err, result) {
             var ret = {}
@@ -67,5 +69,12 @@ module.exports = {
                 console.log("join");
                 break;
         }
+    },
+    join : function (req, res, next) {
+        var topicID = req.body.topicID;
+        //var
+    },
+    removejoin : function (req, res, next) {
+
     }
 }

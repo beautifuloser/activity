@@ -6,15 +6,15 @@
     <div ng-app="topicApp" ng-controller="topicController">
         <h2 class="topic-title">{{topic.title}}</h2>
         <section class="topic-author-info">
-            <img class="topic-avatar" ng-src="{{topic.auther.avatar_url}}">
+            <img class="topic-avatar" ng-src="{{topic.author.avatar_url}}">
             <div class="topic-col">
-                <span>{{topic.auther.auther_name}}</span>
+                <span>{{topic.author.author_name}}</span>
             </div>
             <!--<div class="topic-right"></div>-->
         </section>
 
         <section class="topic-content">
-            <p>{{topic.auther.content}}</p>
+            <p>{{topic.author.content}}</p>
         </section>
 
         <section>
@@ -39,7 +39,16 @@
                 }
             });
             $scope.join = function () {
-                
+                var url = '/join';
+                var data = {
+                    topicID : $scope.topic.id,
+                    user : ""
+                }
+                $http.post(url,data).success(function (res) {
+                    if (res.retvalue == true){
+                        $scope.joined.push();
+                    }
+                });
             }
         }
         $scope.initTopicPage();

@@ -23,4 +23,8 @@ router.get('/listPage/:type', function (req, res, next) {
 router.get('/topicPage/:id', function (req, res, next) {
   res.render('topic',{title:req.params.id});
 });
+
+router.post('/join',topic.join);
+router.post('/removejoin',topic.removejoin);
+
 module.exports = router;
