@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="/stylesheets/topic.css">
+<head>
+    <title><%=title%></title>
+</head>
+<body>
+    <div ng-app="topicApp" ng-controller="topicController">
+        <h2 class="topic-title">{{topic.title}}</h2>
+        <section class="topic-author-info">
+            <img class="topic-avatar" ng-src="{{topic.auther.avatar_url}}">
+            <div class="topic-col">
+                <span>{{topic.auther.auther_name}}</span>
+            </div>
+            <!--<div class="topic-right"></div>-->
+        </section>
+
+        <section class="topic-content">
+            <p>{{topic.auther.content}}</p>
+        </section>
+
+        <section>
+            <div class="topic-joined-icon"></div>
+            <div class="topic-join-button">
+                <img class="topic-join-button-img" ng-click="join()">
+            </div>
+        </section>
+    </div>
+<script src="/bower_components/angular/angular.min.js"></script>
+<script>
+    var app = angular.module('topicApp',[]);
+    app.controller('topicController', function ($scope, $http) {
+        $scope.initTopicPage = function () {
+            var url = "/topic/"+document.title;
+            $http.get(url).success(function (res) {
+                if (res.retvalue == true){
+                    alert(JSON.stringify(res));
+                    $scope.topic = res.topic;
+                }else{
+                    alert("系统错误!");
+                }
+            });
+            $scope.join = function () {
+                
+            }
+        }
+        $scope.initTopicPage();
+    });
+</script>
+</body>

@@ -8,7 +8,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 router.get('/topics',topic.topics);
-router.get('/topic',topic.get);
+router.get('/topic/:id',topic.get);
+
 router.post('/topic',topic.post);
 
 router.get('/user',user.user);
@@ -18,5 +19,8 @@ router.get('/new', function (req, res, next) {
 });
 router.get('/listPage/:type', function (req, res, next) {
   res.render('listPage',{title:req.params.type});
+});
+router.get('/topicPage/:id', function (req, res, next) {
+  res.render('topic',{title:req.params.id});
 });
 module.exports = router;

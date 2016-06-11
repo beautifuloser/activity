@@ -1,6 +1,16 @@
 module.exports = {
     get : function (req, res, next) {
-        console.log("=====");
+        var topicID = req.params.id;
+        req.models.topic.findOne({where:{id:topicID}}).exec(function (err, topic) {
+            var ret = {};
+            if (!err){
+                ret.retvalue = true;
+                ret.topic = topic;
+            }else{
+                ret.retvalue = false;
+            }
+            res.end(JSON.stringify(ret));
+        });
     },
     put : function (req, res, next) {
 

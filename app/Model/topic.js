@@ -21,7 +21,7 @@ module.exports = Waterline.Collection.extend({
         tag : {
             type : 'string',
         },
-
+        joined:'array',
         last_reply_at : 'string',
         reply_count :'number',
         hot:'boolean',

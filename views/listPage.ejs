@@ -2,21 +2,23 @@
 <link rel="stylesheet" href="/stylesheets/topicList.css">
 <div ng-app="topicListApp" ng-controller="topicListController" >
     <ul>
-        <li class="topic-list-li" style="list-style-type:none" ng-repeat="topic in topics">
-            <h3 style="font-size: x-large">{{topic.title}}</h3>
-            <div class="topic-list-content">
-                <img class="topic-list-avatar" ng-src="{{topic.auther.avatar_url}}">
-                <div class="topic-list-info">
-                    <p class="topic-list-p">
-                        <span class="name">{{topic.auther.auther_name}}</span>
-                        <span class="status">11</span>
-                    </p>
-                    <p class="topic-list-p">
-                        <time>2天</time>
-                        <time>12:00:00</time>
-                    </p>
-                    </div>
-            </div>
+        <li class="topic-list-li" style="list-style-type:none"  ng-repeat="topic in topics">
+            <a ng-href="/topicPage/{{topic.id}}" target="mainBodyFrame">
+                <h3 style="font-size: x-large">{{topic.title}}</h3>
+                <div class="topic-list-content">
+                    <img class="topic-list-avatar" ng-src="{{topic.auther.avatar_url}}">
+                    <div class="topic-list-info">
+                        <p class="topic-list-p">
+                            <span class="name">{{topic.auther.auther_name}}</span>
+                            <span class="status">11</span>
+                        </p>
+                        <p class="topic-list-p">
+                            <time>2天</time>
+                            <time>12:00:00</time>
+                        </p>
+                        </div>
+                </div>
+            </a>
         </li>
     </ul>
 </div>

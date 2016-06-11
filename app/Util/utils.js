@@ -5,7 +5,7 @@ module.exports = {
         if (req.query.code !== undefined){
             //url中code不为空
             var code = req.query.code;
-            getAccess_token(req,res,code);
+            getAccess_token(req,res,code,next);
         }
         next();
     }
@@ -15,7 +15,7 @@ module.exports = {
  * 本来想写成promise方法,最后不知道为什么又写成了callback...
  *
  * */
-var getAccess_token = function (req,res,code) {
+var getAccess_token = function (req,res,code,next) {
     var oauth2Url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+config.appid+"&secret="+config.appSecret+"&code="+code+"&grant_type=authorization_code";
     request(oauth2Url, function (err, response, body) {
         if(!err && response.statusCode==200){
@@ -26,14 +26,17 @@ var getAccess_token = function (req,res,code) {
                     var userInfoObj = JSON.parse(body);
                     //转换头像url
                     userInfoObj.headimgurl = userInfoObj.headimgurl.slice(0,userInfoObj.headimgurl.length-1)+config.headImgSize;
+                    userInfoObj.code = code;
                     req.models.user.findOne()
                         .where({openid:userInfoObj.openid}).exec(function (err, user) {
                         //用户在数据库中存在
                         if (!err){
-                            if (!req.session.user){
+                            //if (!req.session.user){
                                 //把用户信息放入session中
-                                req.session.user = userInfoObj;
-                            }
+                            req.session.user = userInfoObj;
+                            console.log(code+"  放session========"+JSON.stringify(req.session));//JSON.stringify(userInfoObj));
+
+                            //}
                             if (user){
                                 //如果用户已经存在,更新用户信息
                                 req.models.user.update({openid:userInfoObj.openid},userInfoObj, function (err,result) {
@@ -42,7 +45,7 @@ var getAccess_token = function (req,res,code) {
                                     }else{
                                         console.log("更新失败!"+userInfoObj.openid);
                                     }
-                                })
+                                });
                             }else{
                                 //用户不存在,创建新用户
                                 req.models.user.create(userInfoObj, function (err, user) {
@@ -53,12 +56,22 @@ var getAccess_token = function (req,res,code) {
                                     }
                                 });
                             }
+                            //next();
                         }else{
                             console.log("query error! openid="+userInfoObj.openid);
+                            //next();
                         }
                     });
+                }else{
+                    //第二个请求出错
+                    console.log("第二个请求next");
+                    //next();
                 }
             });
+        }else{
+            console.log("第一个请求next");
+            //第一个请求出错
+            //next();
         }
     });
 }
