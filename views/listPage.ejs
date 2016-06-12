@@ -9,15 +9,15 @@
             <a ng-href="/topicPage/{{topic.id}}" target="mainBodyFrame">
                 <h3 style="font-size: x-large">{{topic.title}}</h3>
                 <div class="topic-list-content">
-                    <img class="topic-list-avatar" ng-src="{{topic.author.avator_url}}">
+                    <img class="topic-list-avatar" ng-src="{{topic.author.headimgurl}}">
                     <div class="topic-list-info">
                         <p class="topic-list-p">
-                            <span class="name">{{topic.author.author_name}}</span>
-                            <span class="status">11</span>
+                            <span class="name">{{topic.author.nickname}}</span>
+                            <span class="status">{{topic.joined}}</span>
                         </p>
                         <p class="topic-list-p">
-                            <time>2天</time>
-                            <time>12:00:00</time>
+                            <time>{{topic.createdAt}}</time>
+                            <!--<time></time>-->
                         </p>
                         </div>
                 </div>

@@ -32,7 +32,6 @@
             $http.post('/topic',data).success(function (res) {
                 if (res.retvalue == true){
                     var topicID = res.topic.id;
-                    window.location.href = "/topicPage/"+topicID;
                 }else{
                     alert("保存失败!"+JSON.stringify(res));
                     return false;

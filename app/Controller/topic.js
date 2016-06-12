@@ -26,17 +26,27 @@ module.exports = {
             content:req.body.content,
             author_openid :req.body.openid
         }
-        console.log(JSON.stringify(topicObj));
-        req.models.topic.create(topicObj).exec(function (err, topic) {
+        req.models.user.findOne({openid:req.body.openid}).exec(function (err, user) {
             if (!err){
-                ret.retvalue = true;
-                ret.topic = topic;
-            }else{
-                ret.retvalue = false;
-                ret.topic = err;
+                console.log(JSON.stringify(user)+"================find user");
+                //var saveUser = {
+                //    openid:user.openid,//用户唯一标识
+                //    nickname: user.nickname,
+                //    headimgurl:user.headimgurl
+                //}
+                topicObj.author = JSON.stringify(user);
+                console.log(JSON.stringify(topicObj)+"=======topicobj")
+                req.models.topic.create(topicObj).exec(function (err, topic) {
+                    if (!err){
+                        ret.retvalue = true;
+                        ret.topic = topic;
+                    }else{
+                        ret.retvalue = false;
+                        ret.topic = err;
+                    }
+                    res.end(JSON.stringify(ret));
+                });
             }
-            console.log("========"+JSON.stringify(ret));
-            res.end(JSON.stringify(ret));
         });
     },
     topics: function (req, res, next) {
@@ -49,10 +59,11 @@ module.exports = {
                     if (!err){
                         ret.retvalue = true;
                         ret.topics = JSON.stringify(topics);
+                        res.end(JSON.stringify(ret));
                     }else{
                         ret.retvalue = false;
+                        res.end(JSON.stringify(ret));
                     }
-                    res.end(JSON.stringify(ret));
                 });
                 break;
             case 'hot':
@@ -68,6 +79,17 @@ module.exports = {
                 });
                 break;
             case 'my':
+                req.models.topic.find().where({author_openid:req.session.user.openid}).exec(function (err, topics) {
+                    console.log(JSON.stringify(topics));
+                    var ret ={};
+                    if (!err){
+                        ret.retvalue = true;
+                        ret.topics = JSON.stringify(topics);
+                    }else {
+                        ret.retvalue = false;
+                    }
+                    res.end(JSON.stringify(ret));
+                });
                 break;
             case 'join':
                 console.log("join");

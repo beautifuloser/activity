@@ -7,9 +7,9 @@
         <h2 class="topic-title">{{topic.title}}</h2>
         <section class="topic-author-info">
             <!--<img class="topic-avatar" ng-src="{{topic.author.author_url}}">-->
-            <img class="topic-avatar" ng-src="{{topic.author.avator_url}}">
+            <img class="topic-avatar" ng-src="{{topic.author.headimgurl}}">
             <div class="topic-col">
-                <span>{{topic.author.author_name}}</span>
+                <span>{{topic.author.nickname}}</span>
             </div>
             <!--<div class="topic-right"></div>-->
         </section>
@@ -48,7 +48,6 @@
             });
             //加入活动
             $scope.joinTopic = function () {
-                alert("==");
                 var url = '/join';
                 var data = {
                     topicID : $scope.topic.id,

@@ -3,5 +3,5 @@ module.exports = {
     appSecret : "7d220e16a47810a99bdde1e45988d397",
     mongoURI:"mongodb://activity:activity@ds025180.mlab.com:25180/activity",
     //mongoURI:"mongodb://localhost:27017/activity",
-    headImgSize:64//头像尺寸
+    headImgSize:132//头像尺寸
 }

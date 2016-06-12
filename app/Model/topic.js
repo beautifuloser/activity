@@ -13,11 +13,15 @@ module.exports = Waterline.Collection.extend({
             type : 'string',
             required : true
         },
-        author : {
-            openid:'string',//用户唯一标识
-            nickname: 'string',
-            headimgurl:'string'
+        author:{
+            type:'json'
         },
+        //author : {
+        //    openid:'string',//用户唯一标识
+        //    nickname: 'string',
+        //    headimgurl:'string'
+        //},
+        joined:'string',
         author_openid:'string',
         tag : {
             type : 'string',
