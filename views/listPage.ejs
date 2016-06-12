@@ -1,12 +1,15 @@
 <title><%=title%></title>
 <link rel="stylesheet" href="/stylesheets/topicList.css">
+<!--<link rel="stylesheet" href="/stylesheets/test.css">-->
+<!--<link rel="stylesheet" href="/stylesheets/style.css">-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
 <div ng-app="topicListApp" ng-controller="topicListController" >
     <ul>
         <li class="topic-list-li" style="list-style-type:none"  ng-repeat="topic in topics">
             <a ng-href="/topicPage/{{topic.id}}" target="mainBodyFrame">
                 <h3 style="font-size: x-large">{{topic.title}}</h3>
                 <div class="topic-list-content">
-                    <img class="topic-list-avatar" ng-src="{{topic.author.avatar_url}}">
+                    <img class="topic-list-avatar" ng-src="{{topic.author.avator_url}}">
                     <div class="topic-list-info">
                         <p class="topic-list-p">
                             <span class="name">{{topic.author.author_name}}</span>

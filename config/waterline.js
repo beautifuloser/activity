@@ -5,6 +5,7 @@ var topic = require('../app/Model/topic');
 var tag = require('../app/Model/tag');
 var reply = require('../app/Model/reply');
 var user = require('../app/Model/user');
+var join = require('../app/Model/join');
 var orm = new Waterline();
 var wlconfig = {
     adapters:{
@@ -23,5 +24,6 @@ orm.loadCollection(tag);
 orm.loadCollection(topic);
 orm.loadCollection(reply);
 orm.loadCollection(user);
+orm.loadCollection(join);
 exports.orm = orm;
 exports.config = wlconfig;

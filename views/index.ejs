@@ -33,8 +33,12 @@
 			$scope.initUserInfo = function () {
 				$http.get('/user').success(function(res){
 					if(res.retvalue == true){
-						//返回用户信息
-						$scope.user = res.user;
+//						if (res.user == undefined){
+//							$scope.initUserInfo();
+//						}else{
+							//返回用户信息
+							$scope.user = res.user;
+//						}
 					}
 				});
 			}

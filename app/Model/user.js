@@ -5,7 +5,7 @@ module.exports = Waterline.Collection.extend({
     connection : 'mongo',
     schema : true,
     attributes : {
-        code:'string',
+        usercode:'string',
         openid:'string',//用户唯一标识
         nickname: 'string',
         sex:'string',

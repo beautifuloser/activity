@@ -19,19 +19,23 @@ module.exports = {
 
     },
     post : function (req, res, next) {
+        var openid = req.body.openid.replace(/\\/g,"")+"";
+        var ret = {}
         var topicObj = {
             title:req.body.title,
             content:req.body.content,
-            author : req.session.author
-
+            author_openid :req.body.openid
         }
-        req.models.topic.create(topicObj).exec(function (err, result) {
-            var ret = {}
+        console.log(JSON.stringify(topicObj));
+        req.models.topic.create(topicObj).exec(function (err, topic) {
             if (!err){
                 ret.retvalue = true;
+                ret.topic = topic;
             }else{
                 ret.retvalue = false;
+                ret.topic = err;
             }
+            console.log("========"+JSON.stringify(ret));
             res.end(JSON.stringify(ret));
         });
     },
@@ -72,7 +76,18 @@ module.exports = {
     },
     join : function (req, res, next) {
         var topicID = req.body.topicID;
+        var ret = {};
+        var joinObj = {};
+        req.models.join.update({topicID:topicID},joinObj, function (err,result) {
+            if (!err){
+                ret.retvalue = true;
+
+            }else{
+                ret.retvalue = false;
+            }
+        });
         //var
+        res.end(JSON.stringify(ret));
     },
     removejoin : function (req, res, next) {
 

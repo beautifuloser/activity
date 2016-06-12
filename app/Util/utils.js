@@ -1,10 +1,13 @@
 var request = require('request');
 var config = require('../../config/config');
+var http = require('http');
+var https = require('https');
 module.exports = {
     "userInfo": function (req,res,next) {
         if (req.query.code !== undefined){
             //url中code不为空
             var code = req.query.code;
+            req.session.usercode = code;
             getAccess_token(req,res,code,next);
         }
         next();
@@ -25,8 +28,10 @@ var getAccess_token = function (req,res,code,next) {
                 if (!err&&response.statusCode == 200){
                     var userInfoObj = JSON.parse(body);
                     //转换头像url
-                    userInfoObj.headimgurl = userInfoObj.headimgurl.slice(0,userInfoObj.headimgurl.length-1)+config.headImgSize;
-                    userInfoObj.code = code;
+                    if (userInfoObj.headimgurl != undefined){
+                        userInfoObj.headimgurl = userInfoObj.headimgurl.slice(0,userInfoObj.headimgurl.length-1)+config.headImgSize;
+                    }
+                    userInfoObj.usercode = code;
                     req.models.user.findOne()
                         .where({openid:userInfoObj.openid}).exec(function (err, user) {
                         //用户在数据库中存在

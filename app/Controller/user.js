@@ -2,9 +2,12 @@ module.exports = {
     user : function (req, res, next) {
         var ret = {};
         console.log(JSON.stringify(req.session)+"==========");
-        req.models.user.findOne({where:{code:req.session.code}}).exec(function (err,user) {
+        req.models.user.findOne({where:{usercode:req.session.usercode}}).exec(function (err,user) {
             if (!err) {
-                console.log("controller/user.js取值成功");
+                if (user != undefined){
+                    console.log("controller/user.js取值成功");
+                }
+                req.session.user = user;
                 ret.retvalue = true;
                 ret.user = user;
             }else{
