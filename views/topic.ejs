@@ -89,7 +89,7 @@
                     $scope.replys = res.replys;
                     isJoined =res.isJoin;
                     if (res.isJoin){
-                        $scope.joinButton = "退出";
+                        $scope.joinButton = "取消";
                     }else{
                         $scope.joinButton = "参加";
                     }
@@ -119,7 +119,7 @@
                     $http.post(url,data).success(function (res) {
                         if (res.retvalue == true){
                             if (res.isJoin == true){
-                                $scope.joinButton = "退出";
+                                $scope.joinButton = "取消";
                             }else{
                                 $scope.joinButton = "参加";
                             }
