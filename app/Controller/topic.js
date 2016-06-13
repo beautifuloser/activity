@@ -1,27 +1,35 @@
+var util = require('../Util/utils');
 module.exports = {
     get : function (req, res, next) {
         var topicID = req.params.id;
-        var userID = req.session.user.openid;
-        //var userID = "oLRLgvlz8TBFGD6FvzKBxn9mNn_I";
+        //var userID = req.session.user.openid;
+        var userID = "oLRLgvlz8TBFGD6FvzKBxn9mNn_I";
         var ret = {};
         req.models.topic.findOne({where:{id:topicID}}).exec(function (err, topic) {
             if (!err){
                 req.models.join.find({where:{topicID:topicID}}).exec(function (err, join) {
                     if (!err){
                         req.models.reply.find({where:{topicID:topicID}}).exec(function (err, replys) {
-                            if (!err){
-                                req.models.join.findOne({where:{topicID:topicID,user_openid:userID}}).exec(function (err,join) {
+                            if (!err){//,user_openid:userID
+                                req.models.join.find({where:{topicID:topicID}}).exec(function (err,joins) {
                                     if (!err){
-                                        if (join){
-                                            ret.selfJoined = true;
-                                        }else{
-                                            ret.selfJoined = false;
-                                        }
-                                        ret.join = join;
-                                        ret.retvalue = true;
-                                        ret.topic = topic;
-                                        ret.replys = replys;
-                                        res.end(JSON.stringify(ret));
+                                        req.models.join.findOne({where:{topicID:topicID,user_openid:userID}}).exec(function (err, me) {
+                                            if (!err){
+                                                if (me){
+                                                    ret.isJoin = true;
+                                                }else{
+                                                    ret.isJoin = false;
+                                                }
+                                                //console.log(""+JSON.stringify(join)+"23423423423");
+                                                //console.log("----------"+JSON.stringify(joins));
+                                                ret.join = join;
+                                                ret.retvalue = true;
+                                                ret.topic = topic;
+                                                ret.replys = replys;
+                                                //console.log("1-1-1-1-1-1-"+JSON.stringify(ret));
+                                                res.end(JSON.stringify(ret));
+                                            }
+                                        });
                                     }else{
                                         ret.retvalue = false;
                                         res.end(JSON.stringify(ret));
@@ -84,6 +92,7 @@ module.exports = {
                     if (!err){
                         ret.retvalue = true;
                         ret.topics = JSON.stringify(topics);
+                        console.log(JSON.stringify(ret)+"===========");
                         res.end(JSON.stringify(ret));
                     }else{
                         ret.retvalue = false;
@@ -117,7 +126,7 @@ module.exports = {
                 });
                 break;
             case 'join':
-                console.log("join");
+                //req.models.
                 break;
         }
     },
@@ -134,6 +143,8 @@ module.exports = {
                 req.models.join.find({where:{topicID:req.body.topicID}}).exec(function(err,joins){
                     ret.retvalue = true;
                     ret.join = joins;
+                    ret.isJoin = true;
+                    //console.log("join---=-=-=-=-="+JSON.stringify(ret.join));
                     res.end(JSON.stringify(ret));
                 });
             }else{
@@ -154,6 +165,8 @@ module.exports = {
                     if (!err){
                         ret.retvalue = true;
                         ret.join = joins;
+                        ret.isJoin = false;
+                        //console.log("canceljoin---=-=-=-=-="+JSON.stringify(ret.join));
                         res.end(JSON.stringify(ret));
                     }else{
                         ret.retvalue = false;

@@ -8,6 +8,7 @@
 	<!--<link rel="stylesheet" type="text/css" href="/stylesheets/normalize.css" />-->
 	<!--<link rel="stylesheet" type="text/css" href="/stylesheets/default.css">-->
 	<script src="/bower_components/angular/angular.min.js"></script>
+	<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
 	<link rel="stylesheet" href="/stylesheets/test.css">
 	<link rel="stylesheet" href="/stylesheets/style.css">
@@ -35,12 +36,12 @@
 			$scope.initUserInfo = function () {
 				$http.get('/user').success(function(res){
 					if(res.retvalue == true){
-//						if (res.user == undefined){
-//							$scope.initUserInfo();
-//						}else{
+						if (res.user == undefined){
+							$scope.initUserInfo();
+						}else{
 							//返回用户信息
 							$scope.user = res.user;
-//						}
+						}
 					}
 				});
 			}
@@ -48,7 +49,8 @@
 			$scope.topics = function (type) {
 				$scope.header = type;
 			}
-		})
+
+		});
 		var slideout = new Slideout({
 	        'panel': document.getElementById('main'),
 	        'menu': document.getElementById('menu'),
@@ -69,6 +71,7 @@
 		function toggleClick(){
 			slideout.toggle();
 		}
+
 	</script>
 </body>
 </html>

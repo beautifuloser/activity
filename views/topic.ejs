@@ -9,28 +9,36 @@
             <!--<img class="topic-avatar" ng-src="{{topic.author.author_url}}">-->
             <img class="topic-avatar" ng-src="{{topic.author.headimgurl}}">
             <div class="topic-col">
-                <span>{{topic.author.nickname}}</span>
+                <span style="padding: 10px;font-size: x-large;">{{topic.author.nickname}}</span>
             </div>
             <!--<div class="topic-right"></div>-->
         </section>
         <!-- 活动主内容 -->
         <section class="topic-content">
-            <p>{{topic.content}}</p>
+            <p style="padding: 20px">{{topic.content}}</p>
         </section>
+        <!--活动参与人数-->
+        <h3 class="topic-count-section">
+            <strong>{{joined.length}}</strong>人参加
+        </h3>
         <!--活动参与-->
-        <section>
+        <section class="topic-join-section">
             <div class="topic-joined-icons">
-                <div ng-repeat="user in joined">
+                <div  ng-repeat="user in joined">
                     <div class="topic-joined-icon">
                         <img class="topic-avatar" ng-src="{{user.user.headimgurl}}">
                     </div>
                 </div>
             </div>
-            <div class="topic-join-button">
+            <div class="topic-join-button-area">
                 <!--<img class="topic-join-button-img" ng-click="joinTopic()">-->
-                <button ng-click="joinTopic()">{{joinButton}}</button>
+                <button class="topic-join-button" ng-click="joinTopic()">{{joinButton}}</button>
             </div>
         </section>
+        <!--活动回复人数-->
+        <h3 class="topic-count-section">
+            <strong>{{replys.length}}</strong>人回复
+        </h3>
         <!--回复-->
         <section class="reply-list">
             <ul>
@@ -58,7 +66,7 @@
         <!--输入-->
         <section class="reply-action-area">
             <textarea class="reply-textarea" ng-model="replyContent"></textarea>
-            <button class="" ng-click="replyClick()">回复</button>
+            <button class="topic-reply-button" ng-click="replyClick()">回复</button>
         </section>
     </div>
 <script src="/bower_components/angular/angular.min.js"></script>
@@ -74,13 +82,13 @@
                 if (res.retvalue == true){
 
                     $scope.topic = res.topic;
-                    $scope.joined  = JSON.parse('')
+                    $scope.joined  = res.join;
 //                    alert(parseJoinList(res.join));
                     joinedList = res.join;
                     replyList = res.replys;
                     $scope.replys = res.replys;
-                    isJoined =res.selfJoined;
-                    if (res.selfJoined){
+                    isJoined =res.isJoin;
+                    if (res.isJoin){
                         $scope.joinButton = "退出";
                     }else{
                         $scope.joinButton = "参加";
@@ -93,17 +101,16 @@
 
         //加入活动
             $scope.joinTopic = function () {
-                alert("加入活动");
                     var url = '';
                     if(isJoined){
                         //已经参加
                         url = "/cancelJoin";
-                        $scope.joinButton = "参加";
+
                         isJoined = false;
                     }else{
                         //未参加
                         url = '/join';
-                        $scope.joinButton = "退出";
+
                         isJoined = true;
                     }
                     var data = {
@@ -111,20 +118,26 @@
                     }
                     $http.post(url,data).success(function (res) {
                         if (res.retvalue == true){
+                            if (res.isJoin == true){
+                                $scope.joinButton = "退出";
+                            }else{
+                                $scope.joinButton = "参加";
+                            }
 //                            joinedList.push(res.user);
 //                            alert(JSON.stringify(res));
 //                            joinedList = res
-                              joinedList = res.user;
-                            $scope.$apply(function() {
-                                $scope.joined = joinedList;
-                            });
+//                              joinedList = res.join;
+//                            alert(JSON.stringify(joinedList));
+//                            $scope.$apply(function() {
+//                                $scope.joined = joinedList;
+//                            });
+                            $scope.joined = res.join;
                         }else{
                             alert("系统错误!");
                         }
                     });
             }
             $scope.replyClick  = function(){
-                alert("回复活动费");
                 var url = '/reply';
                 var data = {
                     topicID : $scope.topic.id,
@@ -143,16 +156,6 @@
                 });
             }
         $scope.initTopicPage();
-        function parseJoinList(obj) {
-            alert(JSON.stringify(obj));
-            var list = [];
-            var tempObj = {};
-            for(var i = 0;i<obj.join.length;i++){
-                tempObj = obj.join[i];
-                list.push(tempObj);
-            }
-            return JSON.stringify(list);
-        }
     });
 </script>
 </body>

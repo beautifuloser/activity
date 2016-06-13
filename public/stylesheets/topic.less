@@ -26,6 +26,14 @@
 .topic-content{
   border-bottom: solid 1px #d4d4d4;
 }
+.topic-count-section{
+  padding-bottom: 20px;
+  padding-left: 20px;
+  border-bottom: solid 1px #d4d4d4;
+}
+.topic-join-section{
+  border-bottom: solid 1px #d4d4d4;
+}
 .topic-joined-icons{
   text-align: center;
   //background-color: #00B7FF;
@@ -33,25 +41,50 @@
   width: 100%;
   height: 40px;
   display: flex;
+  justify-content: center;
   .topic-joined-icon{
     padding: 5px;
   }
 }
-.topic-join-button{
+.topic-join-button-area{
   text-align: center;
-  width:100%;
+  padding: 20px;
   height: 40px;
+  display: flex;
+  justify-content: center;
   .topic-join-button-img{
     background-color: #00ee00;
     border-radius: 50%;
     width: 40px;
     height: 40px;
   }
+  .topic-join-button{
+    width: 100px;
+    background: #d03e3e;
+    border-color: #d03e3e;
+    border-radius: 5%;
+    border: 1px solid transparent;
+  }
+}
+.topic-reply-button{
+  display: inline-block;
+  width: 95%;
+  height: 42px;
+  margin: 15px 0;
+  line-height: 42px;
+  color: #fff;
+  font-size: 16px;
+  background-color: #4fc08d;
+  border: none;
+  border-bottom: 2px solid #3aa373;
+  text-align: center;
+  vertical-align: middle;
 }
 .reply-list{
   width: 100%;
   margin-top: 15px;
   .reply-list-li{
+    padding-left: 20px;
       border-bottom: solid 1px #d4d4d4;
   }
   .reply-list-li-main{

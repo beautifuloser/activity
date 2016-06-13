@@ -11,6 +11,16 @@ module.exports = {
             getAccess_token(req,res,code,next);
         }
         next();
+    },
+    //一个求帖子参与人数的方法
+    "countJoin": function (req,topicID) {
+        return new Promise(function (resolve, reject) {
+            req.models.join.find({where:{topicID:topicID}}).exec(function (err, joins) {
+                //console.log(topicID);
+                //console.log(joins.length);
+                resolve(joins.length);
+            })
+        })
     }
 }
 /**
