@@ -26,10 +26,16 @@
 .topic-content{
   border-bottom: solid 1px #d4d4d4;
 }
-.topic-joined-icon{
-  background-color: #00B7FF;
+.topic-joined-icons{
+  text-align: center;
+  //background-color: #00B7FF;
+  padding-top: 20px;
   width: 100%;
   height: 40px;
+  display: flex;
+  .topic-joined-icon{
+    padding: 5px;
+  }
 }
 .topic-join-button{
   text-align: center;
@@ -40,5 +46,50 @@
     border-radius: 50%;
     width: 40px;
     height: 40px;
+  }
+}
+.reply-list{
+  width: 100%;
+  margin-top: 15px;
+  .reply-list-li{
+      border-bottom: solid 1px #d4d4d4;
+  }
+  .reply-list-li-main{
+    .reply-user-info{
+      display: flex;
+      .reply-avatar{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+      .reply-user-info-detail{
+        display: flex;
+        align-items: center;
+        .reply-user-info-detail-span{
+          display: flex;
+          justify-content: space-around;
+
+          padding-left: 15px;
+        }
+      }
+    }
+
+  }
+}
+.reply-content{
+  padding-left: 20px;
+}
+ul, li{
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  margin: 0;
+  padding: 0;
+}
+.reply-action-area{
+  text-align: center;
+  padding-top:20px;
+  .reply-textarea{
+    width :96%;
   }
 }

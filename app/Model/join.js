@@ -6,6 +6,7 @@ module.exports = waterline.Collection.extend({
     schema : true,
     attributes : {
         topicID:'string',
-        users:'array'
+        user_openid:'string',
+        user:'json'
     }
 });

@@ -1,15 +1,40 @@
 module.exports = {
     get : function (req, res, next) {
         var topicID = req.params.id;
+        var userID = req.session.user.openid;
+        //var userID = "oLRLgvlz8TBFGD6FvzKBxn9mNn_I";
+        var ret = {};
         req.models.topic.findOne({where:{id:topicID}}).exec(function (err, topic) {
-            var ret = {};
             if (!err){
-                ret.retvalue = true;
-                ret.topic = topic;
-            }else{
-                ret.retvalue = false;
+                req.models.join.find({where:{topicID:topicID}}).exec(function (err, join) {
+                    if (!err){
+                        req.models.reply.find({where:{topicID:topicID}}).exec(function (err, replys) {
+                            if (!err){
+                                req.models.join.findOne({where:{topicID:topicID,user_openid:userID}}).exec(function (err,join) {
+                                    if (!err){
+                                        if (join){
+                                            ret.selfJoined = true;
+                                        }else{
+                                            ret.selfJoined = false;
+                                        }
+                                        ret.join = join;
+                                        ret.retvalue = true;
+                                        ret.topic = topic;
+                                        ret.replys = replys;
+                                        res.end(JSON.stringify(ret));
+                                    }else{
+                                        ret.retvalue = false;
+                                        res.end(JSON.stringify(ret));
+                                    }
+                                });
+                            }else{
+                                ret.retvalue = false;
+                                res.end(JSON.stringify(ret));
+                            }
+                        });
+                    }
+                });
             }
-            res.end(JSON.stringify(ret));
         });
     },
     put : function (req, res, next) {
@@ -97,21 +122,48 @@ module.exports = {
         }
     },
     join : function (req, res, next) {
-        var topicID = req.body.topicID;
         var ret = {};
-        var joinObj = {};
-        req.models.join.update({topicID:topicID},joinObj, function (err,result) {
+        var user = req.session.user;
+        var joinObj = {
+            topicID:req.body.topicID,
+            user_openid:user.openid,
+            user:req.session.user
+        };
+        req.models.join.create(joinObj).exec(function (err, join) {
             if (!err){
-                ret.retvalue = true;
-
+                req.models.join.find({where:{topicID:req.body.topicID}}).exec(function(err,joins){
+                    ret.retvalue = true;
+                    ret.join = joins;
+                    res.end(JSON.stringify(ret));
+                });
             }else{
                 ret.retvalue = false;
+                res.end(JSON.stringify(ret));
             }
         });
-        //var
-        res.end(JSON.stringify(ret));
     },
-    removejoin : function (req, res, next) {
-
+    cancelJoin : function (req, res, next) {
+        var ret = {};
+        var user_openid = req.session.user.openid;
+        var topicID =  req.body.topicID;
+            //topicID:'string',
+            //user_openid:'string',
+        req.models.join.destroy({where:{topicID:topicID,user_openid:user_openid}}).exec(function (err, result) {
+            if (!err){
+                req.models.join.find({where:{topicID:topicID}}).exec(function (err, joins) {
+                    if (!err){
+                        ret.retvalue = true;
+                        ret.join = joins;
+                        res.end(JSON.stringify(ret));
+                    }else{
+                        ret.retvalue = false;
+                        res.end(JSON.stringify(ret));
+                    }
+                })
+            }else{
+                ret.retvalue = false;
+                res.end(JSON.stringify(ret));
+            }
+        })
     }
 }

@@ -1,6 +1,7 @@
 var express = require('express');
 var topic = require('../app/Controller/topic');
 var user = require('../app/Controller/user');
+var reply = require('../app/Controller/reply');
 var router = express.Router();
 
 /* GET home page. */
@@ -11,10 +12,8 @@ router.get('/topics',topic.topics);
 router.get('/topic/:id',topic.get);
 router.get('/topic1', function (req, res, next) {
   res.render('post',{title:"title"});
-})
-
+});
 router.post('/topic',topic.post);
-
 router.get('/user',user.user);
 //router.get('/user',user.user);
 router.get('/new', function (req, res, next) {
@@ -29,5 +28,8 @@ router.get('/topicPage/:id', function (req, res, next) {
 });
 
 router.post('/join',topic.join);
-router.post('/removejoin',topic.removejoin);
+router.post('/cancelJoin',topic.cancelJoin);
+//router.post('/removejoin',topic.cancelJoin);
+//话题回复
+router.post('/reply',reply.reply);
 module.exports = router;
